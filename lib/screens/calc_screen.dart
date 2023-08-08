@@ -13,7 +13,7 @@ class _CalcScreenState extends State<CalcScreen> {
   Color background = Colors.black54;
 
   // String equation = "0";
-  String equation = "1 + 2 + " * 4;
+  String equation = "1+2+" * 4;
   String result = "0";
   String expression = "";
   double equationFontSize = 38.0;
@@ -22,33 +22,51 @@ class _CalcScreenState extends State<CalcScreen> {
   buttonPressed(String buttonText) {
     setState(() {
       if (buttonText == "AC") {
-        // equation = "0";
-        // result = "0";
-        print("AC pressed");
+        equation = "0";
+        result = "0";
+        print("$buttonText pressed");
       } else if (buttonText == "⌫") {
-        print("Delete pressed");
+        equation = equation.substring(0, equation.length - 1);
+        if (equation == "") {
+          equation = "0";
+        }
+        print("$buttonText pressed");
+      } else if (buttonText == "+/-") {
+        print("+/- pressed");
+      } else if (buttonText == "=") {
+        expression = equation;
+        expression = expression.replaceAll("x", "*");
+        expression = expression.replaceAll("÷", "/");
+        expression = expression.replaceAll("%", "%");
+        print("$buttonText pressed");
+      } else {
+        if (equation == "0") {
+          equation = buttonText;
+        } else {
+          equation = equation + buttonText;
+          print("$buttonText pressed");
+        }
       }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    // List? buttons;
     return Scaffold(
       backgroundColor: background,
-      // appBar: AppBar(
-      // elevation: 0,
-      // backgroundColor: Colors.black54,
-      //   backgroundColor: appColor,
-      // leading: const Icon(Icons.settings, color: Colors.orange),
-      // actions: const [
-      //   Padding(
-      //     padding: EdgeInsets.only(top: 18.0),
-      //     child: Text('DEG', style: TextStyle(color: Colors.white38)),
-      //   ),
-      // SizedBox(width: 20),
-      // ],
-      // ),
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.black54,
+        // backgroundColor: appColor,
+        leading: const Icon(Icons.settings, color: Colors.orange),
+        actions: const [
+          Padding(
+            padding: EdgeInsets.only(top: 18.0),
+            child: Text('DEG', style: TextStyle(color: Colors.white38)),
+          ),
+          SizedBox(width: 20),
+        ],
+      ),
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -57,7 +75,7 @@ class _CalcScreenState extends State<CalcScreen> {
               width: MediaQuery.of(context).size.width,
               // height: 250,
               height: MediaQuery.of(context).size.height / 4,
-              margin: const EdgeInsets.only(left: 4, right: 4),
+              margin: const EdgeInsets.only(left: 4, right: 4, bottom: 35),
               padding: const EdgeInsets.only(top: 25, bottom: 5),
               decoration: BoxDecoration(
                 shape: BoxShape.rectangle,
@@ -142,8 +160,8 @@ class _CalcScreenState extends State<CalcScreen> {
                         buttonColor: appColor,
                       ),
                       CalcButton(
-                        buttonText: "/",
-                        buttonPressed: () => buttonPressed("/"),
+                        buttonText: "÷",
+                        buttonPressed: () => buttonPressed("÷"),
                         buttonColor: appColor,
                       ),
                       CalcButton(
