@@ -1,5 +1,6 @@
 import 'package:dart_calc/widgets/calc_button.dart';
 import 'package:flutter/material.dart';
+import 'package:math_expressions/math_expressions.dart';
 
 class CalcScreen extends StatefulWidget {
   const CalcScreen({super.key});
@@ -12,14 +13,25 @@ class _CalcScreenState extends State<CalcScreen> {
   Color appColor = const Color(0xff151534);
   Color background = Colors.black54;
 
-  // String equation = "0";
-  String equation = "1+2+" * 4;
+  String equation = "0";
+  // String equation = "1+2+" * 7;
   String result = "0";
   String expression = "";
   double equationFontSize = 38.0;
-  double resultFontSize = 48.0;
+  double resultFontSize = 45.0;
 
   buttonPressed(String buttonText) {
+    // ! checks if the result contains decimal
+    String doesContainDecimal(dynamic result) {
+      if (result.toString().contains(".")) {
+        List<String> splitDecimal = result.toString().split(".");
+        if (!(int.parse(splitDecimal[1]) > 0)) {
+          return result = splitDecimal[0].toString();
+        }
+      }
+      return result;
+    }
+
     setState(() {
       if (buttonText == "AC") {
         equation = "0";
@@ -32,13 +44,32 @@ class _CalcScreenState extends State<CalcScreen> {
         }
         print("$buttonText pressed");
       } else if (buttonText == "+/-") {
+        if (equation[0] != "-") {
+          equation = "-$equation";
+        } else {
+          equation = equation.substring(1);
+        }
         print("+/- pressed");
       } else if (buttonText == "=") {
         expression = equation;
         expression = expression.replaceAll("x", "*");
         expression = expression.replaceAll("÷", "/");
         expression = expression.replaceAll("%", "%");
-        print("$buttonText pressed");
+
+        try {
+          Parser p = Parser();
+          Expression exp = p.parse(expression);
+
+          ContextModel cm = ContextModel();
+          result = "${exp.evaluate(EvaluationType.REAL, cm)}";
+
+          if (expression.contains("%")) {
+            result = doesContainDecimal(result);
+          }
+        } catch (e) {
+          result = "Error";
+        }
+        print("$buttonText pressed, result = $result");
       } else {
         if (equation == "0") {
           equation = buttonText;
@@ -54,19 +85,19 @@ class _CalcScreenState extends State<CalcScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: background,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.black54,
-        // backgroundColor: appColor,
-        leading: const Icon(Icons.settings, color: Colors.orange),
-        actions: const [
-          Padding(
-            padding: EdgeInsets.only(top: 18.0),
-            child: Text('DEG', style: TextStyle(color: Colors.white38)),
-          ),
-          SizedBox(width: 20),
-        ],
-      ),
+      // appBar: AppBar(
+      //   elevation: 0,
+      //   backgroundColor: Colors.black54,
+      //   // backgroundColor: appColor,
+      //   leading: const Icon(Icons.settings, color: Colors.orange),
+      //   actions: const [
+      //     Padding(
+      //       padding: EdgeInsets.only(top: 18.0),
+      //       child: Text('DEG', style: TextStyle(color: Colors.white38)),
+      //     ),
+      //     SizedBox(width: 20),
+      //   ],
+      // ),
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -112,7 +143,8 @@ class _CalcScreenState extends State<CalcScreen> {
                           style: TextStyle(
                             // fontSize: MediaQuery.of(context).size.width / 8,
                             fontSize: resultFontSize,
-                            color: Colors.white,
+                            color:
+                                result == "Error" ? Colors.red : Colors.white,
                           ),
                         ),
                       )
@@ -151,7 +183,7 @@ class _CalcScreenState extends State<CalcScreen> {
                     children: [
                       CalcButton(
                         buttonText: "AC",
-                        buttonPressed: () => buttonPressed("buttonText"),
+                        buttonPressed: () => buttonPressed("AC"),
                         buttonColor: appColor,
                       ),
                       CalcButton(
