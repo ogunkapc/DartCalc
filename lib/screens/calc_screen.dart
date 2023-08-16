@@ -36,20 +36,17 @@ class _CalcScreenState extends State<CalcScreen> {
       if (buttonText == "AC") {
         equation = "0";
         result = "0";
-        print("$buttonText pressed");
       } else if (buttonText == "⌫") {
         equation = equation.substring(0, equation.length - 1);
         if (equation == "") {
           equation = "0";
         }
-        print("$buttonText pressed");
       } else if (buttonText == "+/-") {
         if (equation[0] != "-") {
           equation = "-$equation";
         } else {
           equation = equation.substring(1);
         }
-        print("+/- pressed");
       } else if (buttonText == "=") {
         expression = equation;
         expression = expression.replaceAll("x", "*");
@@ -66,16 +63,17 @@ class _CalcScreenState extends State<CalcScreen> {
           if (expression.contains("%")) {
             result = doesContainDecimal(result);
           }
+          if (result.endsWith(".0")) {
+            result = result.substring(0, result.length - 2);
+          }
         } catch (e) {
           result = "Error";
         }
-        print("$buttonText pressed, result = $result");
       } else {
         if (equation == "0") {
           equation = buttonText;
         } else {
           equation = equation + buttonText;
-          print("$buttonText pressed");
         }
       }
     });
@@ -85,19 +83,6 @@ class _CalcScreenState extends State<CalcScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: background,
-      // appBar: AppBar(
-      //   elevation: 0,
-      //   backgroundColor: Colors.black54,
-      //   // backgroundColor: appColor,
-      //   leading: const Icon(Icons.settings, color: Colors.orange),
-      //   actions: const [
-      //     Padding(
-      //       padding: EdgeInsets.only(top: 18.0),
-      //       child: Text('DEG', style: TextStyle(color: Colors.white38)),
-      //     ),
-      //     SizedBox(width: 20),
-      //   ],
-      // ),
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -302,175 +287,6 @@ class _CalcScreenState extends State<CalcScreen> {
                 ],
               ),
             ),
-
-            // SizedBox(
-            //   width: MediaQuery.of(context).size.width,
-            //   height: MediaQuery.of(context).size.height * 0.5652,
-            //   child: GridView.count(
-            //     crossAxisCount: buttons!.length ~/ 4,
-            //     crossAxisSpacing: 1,
-            //     mainAxisSpacing: 0,
-            //     shrinkWrap: true,
-            //     physics: const NeverScrollableScrollPhysics(),
-            //     children: List.generate(
-            //       buttons.length,
-            //       (index) => Container(child: buttons[index]),
-            //     ),
-            //   ),
-            // ),
-            // GridView.builder(gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4), itemBuilder: (BuildContext context, int index) => List.generate(buttons.length, (index) => buttons[index],),)
-            //   SizedBox(
-            //     width: MediaQuery.of(context).size.width,
-            //     child: Column(
-            //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //       children: [
-            //         Row(
-            //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //           children: [
-            //             CalcButton(
-            //               buttonText: "AC",
-            //               buttonPressed: () {},
-            //               buttonColor: appColor,
-            //             ),
-            //             CalcButton(
-            //               buttonText: "%",
-            //               buttonPressed: () {},
-            //               buttonColor: appColor,
-            //             ),
-            //             CalcButton(
-            //               buttonText: "/",
-            //               buttonPressed: () {},
-            //               buttonColor: appColor,
-            //             ),
-            //             CalcButton(
-            //               buttonText: "x",
-            //               buttonPressed: () {},
-            //               buttonColor: appColor,
-            //             ),
-            //           ],
-            //         ),
-            //         Row(
-            //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //           children: [
-            //             CalcButton(
-            //               buttonText: "7",
-            //               buttonPressed: () {},
-            //               buttonColor: appColor,
-            //             ),
-            //             CalcButton(
-            //               buttonText: "8",
-            //               buttonPressed: () {},
-            //               buttonColor: appColor,
-            //             ),
-            //             CalcButton(
-            //               buttonText: "9",
-            //               buttonPressed: () {},
-            //               buttonColor: appColor,
-            //             ),
-            //             CalcButton(
-            //               buttonText: "-",
-            //               buttonPressed: () {},
-            //               buttonColor: appColor,
-            //             ),
-            //           ],
-            //         ),
-            //         Row(
-            //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //           children: [
-            //             CalcButton(
-            //               buttonText: "4",
-            //               buttonPressed: () {},
-            //               buttonColor: appColor,
-            //             ),
-            //             CalcButton(
-            //               buttonText: "5",
-            //               buttonPressed: () {},
-            //               buttonColor: appColor,
-            //             ),
-            //             CalcButton(
-            //               buttonText: "6",
-            //               buttonPressed: () {},
-            //               buttonColor: appColor,
-            //             ),
-            //             CalcButton(
-            //               buttonText: "+",
-            //               buttonPressed: () {},
-            //               buttonColor: appColor,
-            //             ),
-            //           ],
-            //         ),
-            //         Row(
-            //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //           children: [
-            //             Column(
-            //               children: [
-            //                 Row(
-            //                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //                   children: [
-            //                     CalcButton(
-            //                       buttonText: "1",
-            //                       buttonPressed: () {},
-            //                       buttonColor: appColor,
-            //                     ),
-            //                     // SizedBox(
-            //                     //   width: MediaQuery.of(context).size.width * 0.025,
-            //                     // ),
-            //                     CalcButton(
-            //                       buttonText: "2",
-            //                       buttonPressed: () {},
-            //                       buttonColor: appColor,
-            //                     ),
-            //                     // SizedBox(
-            //                     //   width: MediaQuery.of(context).size.width * 0.02,
-            //                     // ),
-            //                     CalcButton(
-            //                       buttonText: "3",
-            //                       buttonPressed: () {},
-            //                       buttonColor: appColor,
-            //                     ),
-            //                   ],
-            //                 ),
-            //                 Row(
-            //                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //                   children: [
-            //                     CalcButton(
-            //                       buttonText: "+/-",
-            //                       buttonPressed: () {},
-            //                       buttonColor: appColor,
-            //                     ),
-            //                     // SizedBox(
-            //                     //   width: MediaQuery.of(context).size.width * 0.025,
-            //                     // ),
-            //                     CalcButton(
-            //                       buttonText: "0",
-            //                       buttonPressed: () {},
-            //                       buttonColor: appColor,
-            //                     ),
-            //                     // SizedBox(
-            //                     //   width: MediaQuery.of(context).size.width * 0.02,
-            //                     // ),
-            //                     CalcButton(
-            //                       buttonText: ".",
-            //                       buttonPressed: () {},
-            //                       buttonColor: appColor,
-            //                     ),
-            //                   ],
-            //                 ),
-            //               ],
-            //             ),
-            //             CalcButton(
-            //               buttonText: "=",
-            //               buttonPressed: () {},
-            //               buttonColor: appColor,
-            //             ),
-            //           ],
-            //         ),
-            //       ],
-            //     ),
-            //   ),
-            //   const SizedBox(
-            //     height: 10,
-            //   ),
           ],
         ),
       ),
