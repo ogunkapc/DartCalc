@@ -17,6 +17,7 @@ class _CalcScreenState extends State<CalcScreen> {
   // String equation = "1+2+" * 7;
   String result = "0";
   String expression = "";
+  bool reset = false;
   double equationFontSize = 38.0;
   double resultFontSize = 45.0;
 
@@ -52,6 +53,7 @@ class _CalcScreenState extends State<CalcScreen> {
         expression = expression.replaceAll("x", "*");
         expression = expression.replaceAll("÷", "/");
         expression = expression.replaceAll("%", "%");
+        reset = true;
 
         try {
           Parser p = Parser();
@@ -70,8 +72,9 @@ class _CalcScreenState extends State<CalcScreen> {
           result = "Error";
         }
       } else {
-        if (equation == "0") {
+        if (equation == "0" || reset == true) {
           equation = buttonText;
+          reset = false;
         } else {
           equation = equation + buttonText;
         }

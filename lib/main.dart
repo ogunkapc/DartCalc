@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'DartCalc',
-      // darkTheme: ThemeData.dark(useMaterial3: true),
+      darkTheme: ThemeData.dark(useMaterial3: true),
       theme: ThemeData(
         // colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xff151534)),
         useMaterial3: true,
