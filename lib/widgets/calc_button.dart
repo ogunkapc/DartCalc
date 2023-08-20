@@ -13,18 +13,9 @@ class CalcButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Color appColor = const Color(0xff151534);
-
     return Expanded(
-      // width: 90,
-      // height: buttonText == "=" ? 150 : 30,
-      // margin: const EdgeInsets.all(4),
-      // padding: const EdgeInsets.all(0),
       child: Container(
-        // width: 90,
-        // height:
-        //     buttonText == "=" ? 150 : MediaQuery.of(context).size.height / 10,
-        height: MediaQuery.of(context).size.height / 10,
+        height: MediaQuery.of(context).size.height / 11,
         margin: const EdgeInsets.all(5),
         padding: const EdgeInsets.all(0),
         child: ElevatedButton(
@@ -39,13 +30,8 @@ class CalcButton extends StatelessWidget {
           child: Text(
             buttonText,
             style: TextStyle(
-              fontSize: MediaQuery.of(context).size.width / 15,
-              // fontSize: 27,
-              color: buttonText == "AC"
-                  ? Colors.red
-                  // : buttonText == "="
-                  //     ? Colors.orange
-                  : Colors.white,
+              fontSize: MediaQuery.of(context).size.width / 19,
+              color: buttonText == "AC" ? Colors.red.shade600 : Colors.white,
             ),
           ),
         ),

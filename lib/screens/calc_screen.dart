@@ -18,8 +18,8 @@ class _CalcScreenState extends State<CalcScreen> {
   String result = "0";
   String expression = "";
   bool reset = false;
-  double equationFontSize = 38.0;
-  double resultFontSize = 45.0;
+  double equationFontSize = 39.0;
+  double resultFontSize = 38.0;
 
   buttonPressed(String buttonText) {
     // ! checks if the result contains decimal
@@ -86,85 +86,72 @@ class _CalcScreenState extends State<CalcScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: background,
-      body: SafeArea(
+      body: SizedBox(
+        height: MediaQuery.of(context).size.height,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            // ! Equation and Result Screen
             Container(
               width: MediaQuery.of(context).size.width,
               // height: 250,
-              height: MediaQuery.of(context).size.height / 4,
-              margin: const EdgeInsets.only(left: 4, right: 4, bottom: 35),
-              padding: const EdgeInsets.only(top: 25, bottom: 5),
-              decoration: BoxDecoration(
-                shape: BoxShape.rectangle,
-                color: appColor,
-              ),
+              height: MediaQuery.of(context).size.height / 2.5,
+              margin: const EdgeInsets.only(left: 5, right: 5),
+              padding: const EdgeInsets.only(top: 70, bottom: 5),
+              // decoration: BoxDecoration(
+              //   shape: BoxShape.rectangle,
+              //   color: appColor,
+              // ),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    padding: const EdgeInsets.only(
-                        // top: (MediaQuery.of(context).size.height / 35),
-                        bottom: 10,
-                        right: 10),
-                    child: Text(
-                      equation,
-                      textAlign: TextAlign.right,
-                      style: TextStyle(
-                        // fontSize: MediaQuery.of(context).size.width / 8,
-                        fontSize: equationFontSize,
-                        color: Colors.white,
+                  // ! Equation
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height / 5,
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.only(right: 10),
+                      reverse: true,
+                      child: Text(
+                        equation,
+                        textAlign: TextAlign.right,
+                        style: TextStyle(
+                          fontSize: MediaQuery.of(context).size.width / 10,
+                          // fontSize: equationFontSize,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
-                  Column(
-                    children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        padding: const EdgeInsets.only(right: 20),
-                        child: Text(
-                          result,
-                          textAlign: TextAlign.right,
-                          style: TextStyle(
-                            // fontSize: MediaQuery.of(context).size.width / 8,
-                            fontSize: resultFontSize,
-                            color:
-                                result == "Error" ? Colors.red : Colors.white,
-                          ),
-                        ),
-                      )
-                    ],
+                  // ! Result
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    padding: const EdgeInsets.only(right: 10),
+                    child: Text(
+                      result,
+                      textAlign: TextAlign.right,
+                      style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.width / 12,
+                        // fontSize: resultFontSize,
+                        color: result == "Error"
+                            ? Colors.red.shade600
+                            : Colors.white54,
+                      ),
+                    ),
                   ),
                 ],
               ),
             ),
-            // Container(
-            //   height: MediaQuery.of(context).size.height * 0.05,
-            //   width: MediaQuery.of(context).size.width,
-            //   padding: const EdgeInsets.all(2.5),
-            //   margin: const EdgeInsets.only(bottom: 10),
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //     children: [
-            //       IconButton(
-            //         onPressed: () {},
-            //         icon: const Icon(Icons.history_outlined),
-            //       ),
-            //       IconButton(
-            //         onPressed: () {},
-            //         icon: const Icon(Icons.backspace_outlined),
-            //       ),
-            //     ],
-            //   ),
-            // ),
-            const Divider(),
-            const SizedBox(
-              height: 20,
+            Container(
+              padding: const EdgeInsets.only(top: 5, bottom: 5),
+              child: const Divider(
+                color: Colors.white,
+                indent: 15.5,
+                endIndent: 17.5,
+              ),
             ),
-            Expanded(
+            // ! Buttons
+            SizedBox(
               child: Column(
                 children: [
                   Row(
@@ -283,7 +270,7 @@ class _CalcScreenState extends State<CalcScreen> {
                       CalcButton(
                         buttonText: "=",
                         buttonPressed: () => buttonPressed("="),
-                        buttonColor: Colors.orange,
+                        buttonColor: Colors.orange.shade800,
                       ),
                     ],
                   ),
