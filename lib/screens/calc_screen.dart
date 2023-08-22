@@ -14,7 +14,6 @@ class _CalcScreenState extends State<CalcScreen> {
   Color background = Colors.black54;
 
   String equation = "0";
-  // String equation = "1+2+" * 7;
   String result = "0";
   String expression = "";
   bool reset = false;
@@ -94,14 +93,9 @@ class _CalcScreenState extends State<CalcScreen> {
             // ! Equation and Result Screen
             Container(
               width: MediaQuery.of(context).size.width,
-              // height: 250,
               height: MediaQuery.of(context).size.height / 2.5,
               margin: const EdgeInsets.only(left: 5, right: 5),
               padding: const EdgeInsets.only(top: 70, bottom: 5),
-              // decoration: BoxDecoration(
-              //   shape: BoxShape.rectangle,
-              //   color: appColor,
-              // ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -117,7 +111,6 @@ class _CalcScreenState extends State<CalcScreen> {
                         textAlign: TextAlign.right,
                         style: TextStyle(
                           fontSize: MediaQuery.of(context).size.width / 10,
-                          // fontSize: equationFontSize,
                           color: Colors.white,
                         ),
                       ),
@@ -142,6 +135,7 @@ class _CalcScreenState extends State<CalcScreen> {
                 ],
               ),
             ),
+            // ! Divider
             Container(
               padding: const EdgeInsets.only(top: 5, bottom: 5),
               child: const Divider(

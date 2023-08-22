@@ -13,6 +13,7 @@ class CalcButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Expanded is used to make the button fill the available space
     return Expanded(
       child: Container(
         height: MediaQuery.of(context).size.height / 11,
@@ -31,6 +32,7 @@ class CalcButton extends StatelessWidget {
             buttonText,
             style: TextStyle(
               fontSize: MediaQuery.of(context).size.width / 19,
+              // ! make the AC button red
               color: buttonText == "AC" ? Colors.red.shade600 : Colors.white,
             ),
           ),
